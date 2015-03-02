@@ -4,6 +4,7 @@ class GhcBin < Formula
   sha1 "d55a671482614cbd3c12e4594437aedfd78f47de"
 
   env :std
+  conflicts_with "ghc"
 
   def install
     system "./configure", "--prefix=#{prefix}"
