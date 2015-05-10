@@ -6,9 +6,13 @@ class Openmm < Formula
   url "https://github.com/pandegroup/openmm/archive/6.2.tar.gz"
   sha256 "ec2fb826cb40bb58b1ae3c2b9a099302a490398d4d26c3bc1db1393b1b6a642c"
 
-  depends_on "cmake" => :build
+  depends_on "cmake"   => :build
+  depends_on "doxygen" => :build
+  depends_on "swig"    => :build
+  depends_on "fftw"
 
   option "with-opencl", "Enable opencl library"
+  option "without-python", "Don't install Python bindings"
   option "with-test", "Verify during install with `make test`"
 
   def install
@@ -23,11 +27,18 @@ class Openmm < Formula
       system "cmake", "..", *cmake_args
       system "make", "all"
 
-      if build.with? "test"
-        system "make", "test"
-      end
+      system "make", "test" if build.with? "test"
 
       system "make", "install"
+
+      if build.with? "python"
+        cd "python" do
+          ENV["OPENMM_INCLUDE_PATH"] = include
+          ENV["OPENMM_LIB_PATH"]     = lib
+          system "python", "setup.py", "--no-user-cfg", "install", "--prefix=#{libexec}",
+            "--record=installed.txt"
+        end
+      end
     end
   end
 
