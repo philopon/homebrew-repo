@@ -1,19 +1,17 @@
 class Openmm < Formula
   homepage "https://simtk.org/home/openmm"
-
-  head "https://github.com/pandegroup/openmm.git"
-
   url "https://github.com/pandegroup/openmm/archive/6.2.tar.gz"
   sha256 "ec2fb826cb40bb58b1ae3c2b9a099302a490398d4d26c3bc1db1393b1b6a642c"
+  head "https://github.com/pandegroup/openmm.git"
+
+  option "with-opencl", "Enable opencl library"
+  option "without-python", "Don't install Python bindings"
+  option "with-test", "Verify during install with `make test`"
 
   depends_on "cmake"   => :build
   depends_on "doxygen" => :build
   depends_on "swig"    => :build
   depends_on "fftw"
-
-  option "with-opencl", "Enable opencl library"
-  option "without-python", "Don't install Python bindings"
-  option "with-test", "Verify during install with `make test`"
 
   def install
     mkdir "build"

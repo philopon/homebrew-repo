@@ -15,10 +15,9 @@ class Mgltools < Formula
 
   def post_install
     Dir["#{prefix}/MGLToolsPckgs/AutoDockTools/Utilities24/*.py"].each do |script|
-
       cnt = "#!/usr/local/opt/mgltools/bin/python\n"
       File.foreach(script) do |line|
-        if /^#!/ !~ line then
+        if /^#!/ !~ line
           cnt += line
         end
       end
@@ -26,7 +25,6 @@ class Mgltools < Formula
       File.open(script, "w") do |file|
         file.puts(cnt)
       end
-
     end
   end
 
