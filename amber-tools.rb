@@ -1,5 +1,5 @@
 class AmberTools < Formula
-  desc "several independently developed packages that work well by themselves, and with Amber itself."
+  desc "several independently developed packages for Amber"
   homepage "http://ambermd.org/"
   url "http://localhost:8080/src/AmberTools15.tar.bz2"
   version "15.6"
@@ -8,7 +8,7 @@ class AmberTools < Formula
   keg_only "require in package fftw"
 
   depends_on "gcc"
-  depends_on "python"
+  depends_on :python
   depends_on "netcdf" => ["with-fortran", "with-cxx-compat"]
   depends_on :x11
 
@@ -52,18 +52,11 @@ class AmberTools < Formula
     ENV["AMBERHOME"] = prefix
     mv Dir["*"], prefix
 
-    python = "/usr/local/bin/python2"
-    python_version = `python -c "import sys; print('.'.join(map(str, sys.version_info[:2])))"`.chomp
-    site_packages = "lib/python#{python_version}/site-packages"
-
+    python = Formula["python"].bin/"python"
     cd prefix do
       system "./configure", "-macAccelerate", "--no-updates", "--with-netcdf", "/usr/local", "--with-python", python, "gnu"
       system "make", "install"
       system "make", "clean"
-
-      File.open(HOMEBREW_PREFIX/site_packages/"amber-tools.pth", "w") do |file|
-        file.puts(opt_prefix/site_packages)
-      end
     end
   end
 
