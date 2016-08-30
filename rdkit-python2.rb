@@ -1,7 +1,7 @@
 class RdkitPython2 < Formula
   homepage "http://rdkit.org/"
-  url "https://github.com/rdkit/rdkit/archive/Release_2016_03_2.tar.gz"
-  sha256 "f9531c9a03da3c446ad53cc56cf2d4762bf81088dd69fe07bdd41bbd87221ca3"
+  url "https://github.com/rdkit/rdkit/archive/Release_2016_03_4.tar.gz"
+  sha256 "6f8eec252877de3426a501f88b7eadbf3809c53b6466889c9e7af4b3f1aca09c"
 
   keg_only "multiple version"
 
