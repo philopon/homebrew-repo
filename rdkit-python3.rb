@@ -1,7 +1,7 @@
 class RdkitPython3 < Formula
   homepage "http://rdkit.org/"
-  url "https://github.com/rdkit/rdkit/archive/Release_2016_03_4.tar.gz"
-  sha256 "6f8eec252877de3426a501f88b7eadbf3809c53b6466889c9e7af4b3f1aca09c"
+  url "https://github.com/rdkit/rdkit/archive/Release_2016_09_1.tar.gz"
+  sha256 "a9bd932d12795173335ba70e6fe73afaa46c37e9e738ae034e0833c656be6431"
 
   keg_only "multiple version"
 
@@ -25,7 +25,7 @@ class RdkitPython3 < Formula
     site_packages = "lib/python#{python_version}/site-packages"
     numpy_include = `#{python_executable} -c "import numpy;print(numpy.get_include())"`.chomp
 
-    args = std_cmake_parameters.split
+    args = std_cmake_args
     args << "-DRDK_INSTALL_INTREE=OFF"
     args << "-DRDK_BUILD_INCHI_SUPPORT=ON"
 
