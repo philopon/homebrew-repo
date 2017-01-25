@@ -10,7 +10,7 @@ class RdkitPython3 < Formula
   depends_on "boost"
   depends_on :python3
   depends_on "boost-python" => "with-python3"
-  depends_on "homebrew/python/numpy" => "with-python3"
+  depends_on "numpy" => "with-python3"
 
   def install
     cd "External/INCHI-API" do
