@@ -1,40 +1,39 @@
 class Openmm < Formula
   homepage "https://simtk.org/home/openmm"
-  url "https://github.com/pandegroup/openmm/archive/6.2.tar.gz"
-  sha256 "ec2fb826cb40bb58b1ae3c2b9a099302a490398d4d26c3bc1db1393b1b6a642c"
+  url "https://github.com/pandegroup/openmm/archive/7.1.tar.gz"
+  sha256 "a9d73973677fd2c0ffd7072ca9951c55cf6b27f7b998f12f106ff8452fe9feb8"
   head "https://github.com/pandegroup/openmm.git"
 
   option "with-opencl", "Enable opencl library"
-  option "without-python", "Don't install Python bindings"
-  option "with-test", "Verify during install with `make test`"
 
   depends_on "cmake"   => :build
   depends_on "doxygen" => :build
   depends_on "swig"    => :build
+  depends_on :python3 => :recommended
   depends_on "fftw"
 
   def install
-    mkdir "build"
-    cd "build" do
-      cmake_args = std_cmake_args
+    Language::Python.each_python(build) do |python, version|
+      python_exe = "/usr/local/bin/python#{version}"
+      build_dir = "build#{version}"
+      mkdir build_dir
 
-      if build.without? "opencl"
-        cmake_args << "-DOPENMM_BUILD_OPENCL_LIB=OFF"
-      end
+      cd build_dir do
+        cmake_args = std_cmake_args
+        cmake_args << "-DPYTHON_EXECUTABLE=#{python_exe}"
 
-      system "cmake", "..", *cmake_args
-      system "make", "all"
+        if build.without? "opencl"
+          cmake_args << "-DOPENMM_BUILD_OPENCL_LIB=OFF"
+        end
 
-      system "make", "test" if build.with? "test"
+        system "cmake", "..", *cmake_args
+        system "make", "all"
+        system "make", "install"
 
-      system "make", "install"
-
-      if build.with? "python"
         cd "python" do
           ENV["OPENMM_INCLUDE_PATH"] = include
           ENV["OPENMM_LIB_PATH"]     = lib
-          system "python", "setup.py", "--no-user-cfg", "install", "--prefix=#{libexec}",
-            "--record=installed.txt"
+          system python_exe, "setup.py", "--no-user-cfg", "install", "--prefix=#{libexec}"
         end
       end
     end
