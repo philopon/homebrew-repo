@@ -1,12 +1,13 @@
 class RdkitPython3 < Formula
   homepage "http://rdkit.org/"
-  url "https://github.com/rdkit/rdkit/archive/Release_2016_09_3.tar.gz"
-  sha256 "8956d57baadd06e03e6b20266731b66e749b9ff6d6123842bb9f67f0926fb0c7"
+  url "https://github.com/rdkit/rdkit/archive/Release_2017_03_3.tar.gz"
+  sha256 "fd9f1fb51c75c6d44f8d5a5de46139af82ed22e93f90bfdf788e2a4096fd897c"
 
   keg_only "multiple version"
 
   depends_on "cmake" => :build
   depends_on "wget" => :build
+  depends_on "eigen" => :build
   depends_on "boost"
   depends_on :python3
   depends_on "boost-python" => "with-python3"
