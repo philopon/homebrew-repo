@@ -7,7 +7,7 @@ class Rdkit < Formula
   depends_on "wget" => :build
   depends_on "eigen" => :build
   depends_on "boost"
-  depends_on :python3
+  depends_on "python3"
   depends_on "boost-python" => "with-python3"
   depends_on "numpy" => "with-python3"
 
