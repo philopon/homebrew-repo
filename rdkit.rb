@@ -7,9 +7,9 @@ class Rdkit < Formula
   depends_on "wget" => :build
   depends_on "eigen" => :build
   depends_on "boost"
-  depends_on "python3"
-  depends_on "boost-python" => "with-python3"
-  depends_on "numpy" => "with-python3"
+  depends_on "python"
+  depends_on "boost-python"
+  depends_on "numpy"
 
   def install
     cd "External/INCHI-API" do
