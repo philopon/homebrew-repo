@@ -1,15 +1,15 @@
 class Rdkit < Formula
   homepage "http://rdkit.org/"
-  url "https://github.com/rdkit/rdkit/archive/Release_2017_09_2.tar.gz"
-  sha256 "20b4d18bdeb457c95386bd2f6efad64321cb7f1dd885c0e630845933d1276a83"
+  url "https://github.com/rdkit/rdkit/archive/Release_2018_03_1.tar.gz"
+  sha256 "9edac0f57c963947b59dfe6f5a84cf3bd2d93ca7111d4d3cf883c9c61756905d"
 
   depends_on "cmake" => :build
   depends_on "wget" => :build
   depends_on "eigen" => :build
   depends_on "boost"
-  depends_on "python"
-  depends_on "boost-python"
-  depends_on "numpy"
+  depends_on "python3"
+  depends_on "boost-python3"
+  depends_on "numpy" => ["--without-python@2"]
 
   def install
     cd "External/INCHI-API" do
@@ -21,7 +21,6 @@ class Rdkit < Formula
     python_executable = "#{HOMEBREW_PREFIX}/bin/python3"
     python_prefix = `#{python_executable} -c "import sys;print(sys.prefix)"`.chomp
     python_include = `#{python_executable} -c "from distutils import sysconfig;print(sysconfig.get_python_inc(True))"`.chomp
-
     numpy_include = `#{python_executable} -c "import numpy;print(numpy.get_include())"`.chomp
 
     args = std_cmake_args
