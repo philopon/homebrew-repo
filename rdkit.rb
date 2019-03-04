@@ -1,36 +1,26 @@
 class Rdkit < Formula
   homepage "http://rdkit.org/"
-  url "https://github.com/rdkit/rdkit/archive/Release_2018_03_1.tar.gz"
-  sha256 "9edac0f57c963947b59dfe6f5a84cf3bd2d93ca7111d4d3cf883c9c61756905d"
+  url "https://github.com/rdkit/rdkit/archive/Release_2018_09_2.tar.gz"
+  sha256 "02d805c579797cdbe127fdcf659fb82e7ad4d3b29ecd421b995d2f87b69962d3"
+  head "https://github.com/rdkit/rdkit.git", :revision => "dfae8377dd154c1106e25ad60af91b4da21b26f3"
 
   depends_on "cmake" => :build
   depends_on "wget" => :build
   depends_on "eigen" => :build
   depends_on "boost"
-  depends_on "python3"
+  depends_on "python"
   depends_on "boost-python3"
-  depends_on "numpy" => ["--without-python@2"]
+  depends_on "numpy"
 
   def install
-    cd "External/INCHI-API" do
-      system "bash", "download-inchi.sh"
-    end
-
     ENV["RD_BASE"] = buildpath
 
     python_executable = "#{HOMEBREW_PREFIX}/bin/python3"
-    python_prefix = `#{python_executable} -c "import sys;print(sys.prefix)"`.chomp
-    python_include = `#{python_executable} -c "from distutils import sysconfig;print(sysconfig.get_python_inc(True))"`.chomp
-    numpy_include = `#{python_executable} -c "import numpy;print(numpy.get_include())"`.chomp
 
     args = std_cmake_args
     args << "-DRDK_INSTALL_INTREE=OFF"
-    args << "-DRDK_BUILD_INCHI_SUPPORT=ON"
-
+    args << "-DRDK_BUILD_INCHI_SUPPORT=OFF"
     args << "-DPYTHON_EXECUTABLE='#{python_executable}'"
-    args << "-DPYTHON_INCLUDE_DIR='#{python_include}'"
-    args << "-DPYTHON_LIBRARY='#{python_prefix}/Python'"
-    args << "-DPYTHON_NUMPY_INCLUDE_PATH='#{numpy_include}'"
     args << ".."
 
     mkdir "build" do
