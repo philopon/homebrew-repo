@@ -1,8 +1,9 @@
 class Mgltools < Formula
   desc "visualization and analysis of molecular structures."
   homepage "http://mgltools.scripps.edu/"
-  url "http://mgltools.scripps.edu/downloads/downloads/tars/releases/REL1.5.6/mgltools_i86Darwin9_1.5.6.tar.gz"
-  sha256 "15f9f64015270bfa6fa3091c7278e442a77e73d5db6d20ffe45ae019294a3d17"
+  url "https://ccsb.scripps.edu/download/529/"
+  version "1.5.7"
+  sha256 "b94755d52e76beda93bb8ef7d0ee176aeea4128104eaf55d17cae7bd1e492bbe"
 
   keg_only "require in package python"
 
