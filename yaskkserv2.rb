@@ -10,7 +10,14 @@ class Yaskkserv2 < Formula
     bin.install "yaskkserv2_make_dictionary"
   end
 
-  test do
-    system "false"
+  service do
+    run [
+        opt_bin/"yaskkserv2",
+        (Dir.home+"/.dotfiles/dictionary.yaskkserv2"),
+        "--no-daemonize",
+        "--google-suggest",
+        "--google-cache-filename=" + (Dir.home+"/.cache/yaskkserv2"),
+    ]
+    keep_alive true
   end
 end
